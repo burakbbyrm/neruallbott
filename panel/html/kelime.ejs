@@ -1,0 +1,75 @@
+<%- include('başlık.ejs', {bot, user, path}) %>
+  
+  <!-- HEADER -->
+ <div class="container">
+  <div class="jumbotron" style="background-color:#24252a">
+    <div align="center"> 
+	<div align="center"><h2 style="color: #fff;"><i class="" aria-hidden="true"></i>Yasaklı Kelime Sistemi</h2></div>
+  <div align="center"><h2 style="color: #fff;"><i class="" aria-hidden="true"></i>━━━━━━━━━━</h2></div>
+  </div>
+
+<div class="row">
+    
+<div class="col">
+    <div class="container">
+      
+
+      <br>
+      <br>
+      <br>
+        <br>
+        <h4 align="center" style="color:#fff">
+          Kelime Listesi
+      </h4>
+      <br>
+      <center><a align="center" class="btn btn-success" data-toggle="collapse" style="color: white;" data-target="#yeni">Kelime Ekle</a></center>
+        <br>
+        <div id="yeni" class="collapse in">
+      <form method="post">
+        
+        
+          
+          <div class="row">
+                    <div class="col">
+                        <label style="color: white;" for="komut">Yasaklanacak Komut/label>
+                    </div>
+                    <div class="col-75">
+                      <input type="text" id="komut" name="komut" placeholder="Bir kullanıcı tarafından yazıldığında silinecek kelimeyi yazın." required>
+                    </div>
+                </div>
+                </div>
+         <button style="background-color:blue; color:#fff" type="sumbit" id="formbtn" class="btn btn-default"><i class="fa fa-fw fa-save" aria-hidden="true"></i> Kelimeyi Ekle</button>
+          </form>
+        </div>
+        <br>
+        <%if(bot.cmdd2[guild1.id]) {%>
+        <table class="table table-hover" style="background-color:#222">
+            <thead>
+                <tr>
+                  <th scope="col" style="width: 25%">Kelime</th>
+                    <th scope="col" style="width: 25%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                    <%for(var i = 0; i < bot.cmdd2[guild1.id].length; i++) {%>
+              <tr>
+                  <th scope="row"><%=Object.keys(bot.cmdd2[guild1.id][i])%></th>
+                  <td><%=bot.cmdd2[guild1.id][i][(bot.cmdd2[guild1.id][i])]%></td>
+                  <td><a class="btn btn-danger" href="/dashboard/<%=guild1.id%>/kelimefiltresi/sil/<%=Object.keys(bot.cmdd2[guild1.id][i])%>">Kelimeyi Sil</a></td>
+                 </tr>
+                  <%}%>
+            <%} else {%>
+                  <h5 align="center" style="color:#fff">
+                    Sunucuda hiç yasaklanmış kelime bulunmuyor.
+              </h5>
+                         <%}%>
+            </tbody>
+        </table>
+               <right>
+          <div style="width: 100%; text-align: right; margin-top: 15px;">
+            </right>
+      <a href="manage" button style="background-color:orange; color:#fff" type="sumbit" id="formbtn" class="btn btn-default"><i class="fa fa-mail-reply" aria-hidden="true"></i> Geri Dön</button> </a>
+  </div>
+</div>
+
+

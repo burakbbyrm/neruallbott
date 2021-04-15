@@ -1,0 +1,247 @@
+<!--HEADER-->
+<%- include('başlık.ejs', {bot, user, path}) %>
+  <!-- HEADER -->
+      
+      	 <div class="container">
+  <div class="jumbotron" style="background-color:#24252a">
+    <div align="center"> 
+	<div align="center"><h2 style="color: #fff;"><i class="" aria-hidden="true"></i>Hoş Geldiniz</h2></div>
+  <div align="center"><h2 style="color: #fff;"><i class="" aria-hidden="true"></i>━━━━━━━━━━</h2></div>
+  </div>
+      
+   <br>
+      <br>
+      <br>
+        <br>    
+        
+
+           <form method="post">
+    
+    <div class="row">
+        <div class="col-25">
+          <label for="otorol">Otomatik Rol</label>
+        </div>
+        <div class="col-75">
+          <% if (bot.ayar.has(`otoR_${guild.id}`) === false) { %>
+          <select style="text-align: left; width:87%;" name="otorol" id="otorol">
+            <option disabled selected>Bir Rol Seç</option>
+            <% guild.roles.filter(r => r.name !== "@everyone").forEach(r => { %>
+            <option value="<%=r.id%>" style="color:<%=r.hexColor%>"><%=r.name%></option>
+            <% }); %>
+          </select>
+          <a href="/dashboard/<%=guild.id%>/otorol/sifirla" class="reset-btn" role="button">Sıfırla</a>
+          <% } %>
+					<% if(bot.ayar.has(`otoR_${guild.id}`) === true) { %>
+          <select style="color:<%=guild.roles.get(bot.ayar.fetch(`otoR_${guild.id}`)).hexColor%>; text-align: left; width:87%;" name="otorol" id="otorol">
+             <option disabled selected>Bir Rol Seç</option>
+            <option value="<%=bot.ayar.fetch(`otoR_${guild.id}`)%>" style="color:<%=guild.roles.get(bot.ayar.fetch(`otoR_${guild.id}`)).hexColor%>" selected><%=guild.roles.get(bot.ayar.fetch(`otoR_${guild.id}`)).name%></option>
+					 <% guild.roles.filter(r => r.name !== "@everyone").filter(r => r.id !== bot.ayar.fetch(`otoR_${guild.id}`)).forEach(r => { %>
+            <option value="<%=r.id%>" style="color:<%=r.hexColor%>"><%=r.name%></option>
+          <% }); %>
+          </select>
+          <a href="/dashboard/<%=guild.id%>/otorol/sifirla" class="reset-btn" role="button">Sıfırla</a>
+          <% } %>
+        </div>
+      </div>
+        
+        
+        
+             <div class="row">
+        <div class="col-25">
+          <label for="otoRK">Otomatik Rol Kanalı</label>
+        </div>
+        <div class="col-75">
+          <% if (bot.ayar.has(`otoRK_${guild.id}`) === false) { %>
+          <select style="text-align: left; width:87%;" name="otoRK" id="otoRK">
+            <option disabled selected>Bir Kanal Seç</option>
+            <% guild.channels.filter(c => c.type === "text").forEach(c => { %>
+            <option value="<%=c.id%>">#<%=c.name%></option>
+            <% }); %>
+          </select>
+          <a href="/dashboard/<%=guild.id%>/otoRK/sifirla" class="reset-btn" role="button">Sıfırla</a>
+          <% } %>
+					<% if(bot.ayar.has(`otoRK_${guild.id}`) === true) { %>
+          <select style="text-align: left; width:87%;" name="otoRK" id="otoRK">
+            <option value="<%=bot.ayar.fetch(`otoRK_${guild.id}`)%>"><%=guild.channels.get(bot.ayar.fetch(`otoRK_${guild.id}`)).name%></option>
+					 <% guild.channels.filter(c => c.type === "text").filter(c => c.id !== bot.ayar.fetch(`otoRK_${guild.id}`)).forEach(c => { %>
+            <option value="<%=c.id%>">#<%=c.name%></option>
+          <% }); %>
+          </select>
+          <a href="/dashboard/<%=guild.id%>/otoRK/sifirla" class="reset-btn" role="button">Sıfırla</a>
+          <% } %>
+        </div>
+      </div>
+<br><br>
+    
+       <div class="row">
+      <div class="col-25">
+          <label for="otoTag">Otomatik Tag</label>
+      </div>
+      <div class="col-75">
+        <% if (bot.ayar.has(`tagB_${guild.id}`) === false) { %>
+        <input type="text" style="text-align: left; width:87%;" name="otoTag" id="otoTag" maxlength="1950" placeholder="İnsanların ismine otomatik koyulacak tag'ı gir.">
+          <a href="/dashboard/<%=guild.id%>/tag/sifirla" class="reset-btn" role="button">Sıfırla</a>
+          <% } %>
+					<% if(bot.ayar.has(`tagB_${guild.id}`) === true) { %>
+        <input type="text" style="text-align: left; width:87%;" name="otoTag" id="otoTag" maxlength="1950" value="<%=bot.ayar.fetch(`tagB_${guild.id}`)%>">
+          <a href="/dashboard/<%=guild.id%>/tag/sifirla" class="reset-btn" role="button">Sıfırla</a>
+          <% } %>
+      </div>
+    </div>
+    
+           <div class="row">
+        <div class="col-25">
+          <label for="otoTagK">Otomatik Tag Kanalı</label>
+        </div>
+        <div class="col-75">
+          <% if (bot.ayar.has(`tagKanal_${guild.id}`) === false) { %>
+          <select style="text-align: left; width:87%;" name="otoTagK" id="otoTagK">
+            <option disabled selected>Bir Kanal Seç</option>
+            <% guild.channels.filter(c => c.type === "text").forEach(c => { %>
+            <option value="<%=c.id%>">#<%=c.name%></option>
+            <% }); %>
+          </select>
+          <a href="/dashboard/<%=guild.id%>/ototagK/sifirla" class="reset-btn" role="button">Sıfırla</a>
+          <% } %>
+					<% if(bot.ayar.has(`tagKanal_${guild.id}`) === true) { %>
+          <select style="text-align: left; width:87%;" name="otoTagK" id="otoTagK">
+            <option value="<%=bot.ayar.fetch(`tagKanal_${guild.id}`)%>"><%=guild.channels.get(bot.ayar.fetch(`tagKanal_${guild.id}`)).name%></option>
+					 <% guild.channels.filter(c => c.type === "text").filter(c => c.id !== bot.ayar.fetch(`tagKanal_${guild.id}`)).forEach(c => { %>
+            <option value="<%=c.id%>">#<%=c.name%></option>
+          <% }); %>
+          </select>
+          <a href="/dashboard/<%=guild.id%>/ototagK/sifirla" class="reset-btn" role="button">Sıfırla</a>
+          <% } %>
+        </div>
+      </div>
+    
+             </br>
+    
+           <div class="row">
+        <div class="col-25">
+          <label for="dkanal">Davet Bilgi Kanalı</label>
+        </div>
+        <div class="col-75">
+          <% if (bot.ayar.has(`dKanal_${guild.id}`) === false) { %>
+          <select style="text-align: left; width:87%;" name="dkanal" id="dkanal">
+            <option disabled selected>Bir Kanal Seç</option>
+            <% guild.channels.filter(c => c.type === "text").forEach(c => { %>
+            <option value="<%=c.id%>">#<%=c.name%></option>
+            <% }); %>
+          </select>
+          <a href="/dashboard/<%=guild.id%>/dkanal/sifirla" class="reset-btn" role="button">Sıfırla</a>
+          <% } %>
+					<% if(bot.ayar.has(`dKanal_${guild.id}`) === true) { %>
+          <select style="text-align: left; width:87%;" name="dkanal" id="dkanal">
+            <option value="<%=bot.ayar.fetch(`dKanal_${guild.id}`)%>"><%=guild.channels.get(bot.ayar.fetch(`dKanal_${guild.id}`)).name%></option>
+					 <% guild.channels.filter(c => c.type === "text").filter(c => c.id !== bot.ayar.fetch(`dKanal_${guild.id}`)).forEach(c => { %>
+            <option value="<%=c.id%>">#<%=c.name%></option>
+          <% }); %>
+          </select>
+          <a href="/dashboard/<%=guild.id%>/dkanal/sifirla" class="reset-btn" role="button">Sıfırla</a>
+          <% } %>
+        </div>
+      </div>
+        
+    
+
+
+<div class="container">
+  <div class="jumbotron" style="background-color:#24252a">
+    <div align="center"> 
+  </div>
+     </div>
+                            <p><strong>Gelen - Giden sistemini kullanırken kullanabileceğiniz parametreler:</strong></p>
+  <label>{kullanıcı} - sunucuya katılan/ayrılan kullanıcıyı etiketlemez, sadece ismini ve kullanıcı tagını yazar.</br>{kullanıcı-etiket} - sunucuya katılan/ayrılan kullanıcıyı etiketler.</br>{kişisayısı} - toplam üye sayısını gösterir.</br>{sunucu} - sunucu ismini yazar</br>{hesaptarihi} - sunucuya katılan/ayrılan üyenin hesap yaşını gösterir.</br>{alt} - alt satıra geçmenizi sağlar.</br></br>NOT: Discord'daki **, __, ``` gibi yazı stillendirme ögelerini destekler.</label>
+
+            <div class="row">
+        <div class="col-25">
+          <label for="gc">Gelen - Giden Kanalı</label>
+        </div>
+        <div class="col-75">
+          <% if (bot.ayar.has(`gc_${guild.id}`) === false) { %>
+          <select style="text-align: left; width:87%;" name="gc" id="gc">
+            <option disabled selected>Bir Kanal Seç</option>
+            <% guild.channels.filter(c => c.type === "text").forEach(c => { %>
+            <option value="<%=c.id%>">#<%=c.name%></option>
+            <% }); %>
+          </select>
+          <a href="/dashboard/<%=guild.id%>/girisk/sifirla" class="reset-btn" role="button">Sıfırla</a>
+          <% } %>
+					<% if(bot.ayar.has(`gc_${guild.id}`) === true) { %>
+          <select style="text-align: left; width:87%;" name="gc" id="gc">
+            <option value="<%=bot.ayar.fetch(`gc_${guild.id}`)%>"><%=guild.channels.get(bot.ayar.fetch(`gc_${guild.id}`)).name%></option>
+					 <% guild.channels.filter(c => c.type === "text").filter(c => c.id !== bot.ayar.fetch(`gc_${guild.id}`)).forEach(c => { %>
+            <option value="<%=c.id%>">#<%=c.name%></option>
+          <% }); %>
+          </select>
+          <a href="/dashboard/<%=guild.id%>/girisk/sifirla" class="reset-btn" role="button">Sıfırla</a>
+          <% } %>
+        </div>
+      </div>
+        
+          <div class="row">
+      <div class="col-25">
+          <label for="cikisM">Gelen Mesajı</label>
+      </div>
+      <div class="col-75">
+        <% if (bot.ayar.has(`cikisM_${guild.id}`) === false) { %>
+        <input type="text" style="text-align: left; width:87%;" name="cikisM" id="cikisM" maxlength="1950" placeholder="Örneğin: {kullanıcı} sunucuya katıldı. {sunucu} adlı sunucu, {kişisayısı} kişi oldu!">
+          <a href="/dashboard/<%=guild.id%>/cikism/sifirla" class="reset-btn" role="button">Sıfırla</a>
+          <% } %>
+					<% if(bot.ayar.has(`cikisM_${guild.id}`) === true) { %>
+        <input type="text" style="text-align: left; width:87%;" name="cikisM" id="cikisM" maxlength="1950" value="<%=bot.ayar.fetch(`cikisM_${guild.id}`)%>">
+          <a href="/dashboard/<%=guild.id%>/cikism/sifirla" class="reset-btn" role="button">Sıfırla</a>
+          <% } %>
+      </div>
+    </div>
+        
+                <div class="row">
+      <div class="col-25">
+          <label for="girisM">Çıkış Mesajı</label>
+      </div>
+      <div class="col-75">
+        <% if (bot.ayar.has(`girisM_${guild.id}`) === false) { %>
+        <input type="text" style="text-align: left; width:87%;" name="girisM" id="girisM" maxlength="1950" placeholder="Örneğin: {kullanıcı} sunucudan ayrıldı. {sunucu} adlı sunucu, {kişisayısı} kişi kaldı!">
+          <a href="/dashboard/<%=guild.id%>/girism/sifirla" class="reset-btn" role="button">Sıfırla</a>
+          <% } %>
+					<% if(bot.ayar.has(`girisM_${guild.id}`) === true) { %>
+        <input type="text" style="text-align: left; width:87%;" name="girisM" id="girisM" maxlength="1950" value="<%=bot.ayar.fetch(`girisM_${guild.id}`)%>">
+          <a href="/dashboard/<%=guild.id%>/girism/sifirla" class="reset-btn" role="button">Sıfırla</a>
+          <% } %>
+                 </tr>
+
+
+          
+          </ul>
+        
+        
+        
+        
+          <div style="width: 100%; text-align: right; margin-top: 15px;">
+      <button style="background-color:#44b37f; color:#fff" type="sumbit" id="formbtn" class="btn btn-default" ><i class="" aria-hidden="true"></i> Değişiklikleri Kaydet</button>
+      <a href="manage" button style="background-color:orange; color:#fff" type="sumbit" id="formbtn" class="btn btn-default"><i class="fa fa-mail-reply" aria-hidden="true"></i> Geri Dön</button> </a>
+            
+            
+          </div>
+      </form>
+  </div>
+    
+</div>
+        
+     
+    </div>  
+  </div>
+</div> 
+      
+  
+
+  
+  <script>
+      function formAutoSubmit () {
+       var frm = document.getElementById("forum")
+        frm.submit();
+      }
+    </script>
+  
+
